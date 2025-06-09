@@ -1,0 +1,61 @@
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Bed as Seed, Sprout, TreePine, Flower, Trees } from 'lucide-react-native';
+import { PlantStage } from '@/types';
+
+interface PlantGraphicProps {
+  stage: PlantStage;
+  size?: number;
+}
+
+export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
+  const getPlantIcon = () => {
+    const iconProps = {
+      size: size,
+      color: '#22C55E',
+      strokeWidth: 2,
+    };
+
+    switch (stage.id) {
+      case 0:
+        return <Seed {...iconProps} color="#8B4513" />;
+      case 1:
+        return <Sprout {...iconProps} color="#65A30D" />;
+      case 2:
+        return <Sprout {...iconProps} color="#22C55E" />;
+      case 3:
+        return <TreePine {...iconProps} color="#16A34A" />;
+      case 4:
+        return <TreePine {...iconProps} color="#15803D" />;
+      case 5:
+        return <Flower {...iconProps} color="#EC4899" />;
+      case 6:
+        return <Trees {...iconProps} color="#166534" />;
+      default:
+        return <Seed {...iconProps} color="#8B4513" />;
+    }
+  };
+
+  return (
+    <View style={[styles.container, { width: size + 40, height: size + 40 }]}>
+      <View style={[styles.plantContainer, { width: size + 20, height: size + 20 }]}>
+        {getPlantIcon()}
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  plantContainer: {
+    backgroundColor: '#F0FDF4',
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderColor: '#BBF7D0',
+  },
+});
