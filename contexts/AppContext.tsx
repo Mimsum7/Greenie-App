@@ -155,41 +155,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
       dispatch({ type: 'SET_HABITS', payload: defaultHabits });
 
-      // Check if user is authenticated (simulate)
-      const userData: UserProfile = {
-        id: '1',
-        email: 'demo@greenie.app',
-        name: 'Demo User',
-        dietPreference: 'omnivore',
-        commutePreference: 'car',
-        dailyCarbonGoal: 8,
-        totalPoints: 45,
-        currentStreak: 3,
-        plantStage: 2,
-        activeHabits: ['1', '2', '3'],
-        badges: [],
-        createdAt: new Date(),
-        notificationSettings: {
-          dailyTip: true,
-          goalMet: true,
-          streakMilestone: true,
-          tipTime: '09:00',
-        },
-      };
-
-      dispatch({ type: 'SET_USER', payload: userData });
-      dispatch({ type: 'SET_ONBOARDING_COMPLETED', payload: true });
-
-      // Initialize today's progress
-      const today = new Date().toISOString().split('T')[0];
-      const todayProgress: DailyProgress = {
-        date: today,
-        totalKgCO2: 5.2,
-        pointsEarned: 13,
-        habitsCompleted: ['1'],
-        goalMet: false,
-      };
-      dispatch({ type: 'UPDATE_DAILY_PROGRESS', payload: todayProgress });
+      // Start with no authenticated user - let the flow begin naturally
+      dispatch({ type: 'SET_LOADING', payload: false });
 
     } catch (error) {
       console.error('Error loading initial data:', error);

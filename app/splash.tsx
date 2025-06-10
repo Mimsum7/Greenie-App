@@ -12,12 +12,17 @@ export default function SplashScreen() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Always start from welcome page for new experience
-      router.replace('/welcome');
+      if (!state.isAuthenticated) {
+        router.replace('/welcome');
+      } else if (!state.onboardingCompleted) {
+        router.replace('/onboarding');
+      } else {
+        router.replace('/(tabs)');
+      }
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [state.isAuthenticated, state.onboardingCompleted]);
 
   return (
     <LinearGradient
