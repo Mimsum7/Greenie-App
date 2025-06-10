@@ -13,7 +13,7 @@ export default function SplashScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!state.isAuthenticated) {
-        router.replace('/auth');
+        router.replace('/welcome');
       } else if (!state.onboardingCompleted) {
         router.replace('/onboarding');
       } else {
