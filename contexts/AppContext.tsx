@@ -88,6 +88,7 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
       return {
         ...initialState,
         isLoading: false,
+        habits: state.habits, // Keep habits loaded
       };
     default:
       return state;

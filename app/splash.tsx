@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,20 +9,30 @@ import { useApp } from '@/contexts/AppContext';
 export default function SplashScreen() {
   const router = useRouter();
   const { state } = useApp();
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!state.isAuthenticated) {
-        router.replace('/welcome');
-      } else if (!state.onboardingCompleted) {
-        router.replace('/onboarding');
-      } else {
-        router.replace('/(tabs)');
-      }
-    }, 2500);
+    // Wait for app context to initialize
+    if (!state.isLoading) {
+      setIsReady(true);
+    }
+  }, [state.isLoading]);
 
-    return () => clearTimeout(timer);
-  }, [state.isAuthenticated, state.onboardingCompleted]);
+  useEffect(() => {
+    if (isReady) {
+      const timer = setTimeout(() => {
+        if (!state.isAuthenticated) {
+          router.replace('/welcome');
+        } else if (!state.onboardingCompleted) {
+          router.replace('/onboarding');
+        } else {
+          router.replace('/(tabs)');
+        }
+      }, 2500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isReady, state.isAuthenticated, state.onboardingCompleted]);
 
   return (
     <LinearGradient
