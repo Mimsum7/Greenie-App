@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Car, Brain as Train, Bike, Utensils, Leaf, Fish, Zap, Fuel, ChevronDown, ChevronUp, Bus } from 'lucide-react-native';
+import { BiCheese } from 'react-icons/bi';
 import { useApp } from '@/contexts/AppContext';
 
 export default function OnboardingScreen() {
@@ -23,7 +24,7 @@ export default function OnboardingScreen() {
 
   const dietOptions = [
     { id: 'omnivore', label: 'Omnivore', icon: Utensils },
-    { id: 'vegetarian', label: 'Vegetarian 🧀', icon: Utensils }, // Changed to cheese emoji and Utensils icon
+    { id: 'vegetarian', label: 'Vegetarian', icon: BiCheese }, // Using BiCheese icon
     { id: 'vegan', label: 'Vegan', icon: Leaf },
     { id: 'pescatarian', label: 'Pescatarian', icon: Fish },
   ];
@@ -128,10 +129,17 @@ export default function OnboardingScreen() {
                     ]}
                     onPress={() => setPreferences({ ...preferences, diet: option.id })}
                   >
-                    <IconComponent 
-                      size={32} 
-                      color={preferences.diet === option.id ? '#FFFFFF' : '#1B8B3B'} // 20% darker green
-                    />
+                    {option.id === 'vegetarian' ? (
+                      <BiCheese 
+                        size={32} 
+                        color={preferences.diet === option.id ? '#FFFFFF' : '#1B8B3B'} 
+                      />
+                    ) : (
+                      <IconComponent 
+                        size={32} 
+                        color={preferences.diet === option.id ? '#FFFFFF' : '#1B8B3B'} // 20% darker green
+                      />
+                    )}
                     <Text style={[
                       styles.optionText,
                       preferences.diet === option.id && styles.selectedText

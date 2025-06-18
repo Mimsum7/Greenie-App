@@ -89,7 +89,7 @@ export default function DashboardScreen() {
         style={styles.gradient}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
-          {/* Daily Tip Banner - Updated with lighter brown color and tappable */}
+          {/* Daily Tip Banner - Updated with darker brown color and tappable */}
           <TouchableOpacity style={styles.tipBanner} onPress={handleTipPress}>
             <Text style={styles.tipHeader}>🌱 Greenie's Tip</Text>
             <Text style={styles.tipText}>
@@ -279,11 +279,11 @@ const styles = StyleSheet.create({
     color: '#545454', // 20% darker gray
   },
   tipBanner: {
-    backgroundColor: '#B8956B', // 20% lighter brown color
+    backgroundColor: '#A5845F', // 10% darker brown color
     borderRadius: 16,
     padding: 20,
     borderWidth: 1,
-    borderColor: '#D4B896', // Lighter border
+    borderColor: '#C19B7A', // Darker border
     marginBottom: 20,
   },
   tipHeader: {

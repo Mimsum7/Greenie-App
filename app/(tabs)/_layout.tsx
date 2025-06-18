@@ -1,5 +1,6 @@
 import { Tabs } from 'expo-router';
-import { Chrome as Home, Plus, SquareCheck as CheckSquare, MessageCircle, Settings } from 'lucide-react-native';
+import { Plus, SquareCheck as CheckSquare, MessageCircle, Settings } from 'lucide-react-native';
+import { MdOutlineSpaceDashboard } from 'react-icons/md';
 
 export default function TabLayout() {
   return (
@@ -28,7 +29,7 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ size, color }) => (
-            <Home size={size} color={color} />
+            <MdOutlineSpaceDashboard size={size} color={color} />
           ),
         }}
       />
