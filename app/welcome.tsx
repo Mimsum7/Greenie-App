@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   logoContainer: {
-    marginBottom: 48,
+    marginBottom: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    width: 360,
-    height: 360,
+    width: 280,
+    height: 280,
     shadowColor: '#1b3b2f',
     shadowOffset: {
       width: 0,
