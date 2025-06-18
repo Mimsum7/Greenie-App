@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Sprout, TreePine, Flower, Trees, Bed as Seed } from 'lucide-react-native';
+import { Sprout, TreePine, Flower, Trees } from 'lucide-react-native';
 import { PlantStage } from '@/types';
 
 interface PlantGraphicProps {
@@ -18,11 +18,17 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
 
     switch (stage.id) {
       case 0:
-        // Use a simple circle icon for seed stage as fallback
+        // Try to load the PNG image with error handling
         return (
-          <View style={[styles.seedIcon, { width: size * 0.6, height: size * 0.6 }]}>
-            <View style={[styles.seedDot, { width: size * 0.3, height: size * 0.3 }]} />
-          </View>
+          <Image
+            source={require('@/assets/images/seed stage.png')}
+            style={{ width: size, height: size }}
+            resizeMode="contain"
+            onError={(error) => {
+              console.warn('Failed to load seed image:', error);
+            }}
+            defaultSource={require('@/assets/images/seed stage.png')}
+          />
         );
       case 1:
         return <Sprout {...iconProps} color="#65A30D" />;
@@ -38,9 +44,15 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
         return <Trees {...iconProps} color="#166534" />;
       default:
         return (
-          <View style={[styles.seedIcon, { width: size * 0.6, height: size * 0.6 }]}>
-            <View style={[styles.seedDot, { width: size * 0.3, height: size * 0.3 }]} />
-          </View>
+          <Image
+            source={require('@/assets/images/seed stage.png')}
+            style={{ width: size, height: size }}
+            resizeMode="contain"
+            onError={(error) => {
+              console.warn('Failed to load seed image:', error);
+            }}
+            defaultSource={require('@/assets/images/seed stage.png')}
+          />
         );
     }
   };
@@ -66,20 +78,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 3,
     borderColor: '#BBF7D0',
-  },
-  seedIcon: {
-    backgroundColor: '#8B5A2B',
-    borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  seedDot: {
-    backgroundColor: '#A0522D',
-    borderRadius: 100,
   },
 });
