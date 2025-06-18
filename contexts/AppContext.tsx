@@ -71,8 +71,16 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
         date: action.payload.date,
         pointsEarned: state.habits.find(h => h.id === action.payload.habitId)?.points || 0,
       };
+      
+      // Update user's total points
+      const updatedUser = state.user ? {
+        ...state.user,
+        totalPoints: state.user.totalPoints + newCompletion.pointsEarned
+      } : null;
+      
       return {
         ...state,
+        user: updatedUser,
         habitCompletions: [...state.habitCompletions, newCompletion],
       };
     case 'SET_HABITS':

@@ -54,6 +54,19 @@ export default function OnboardingScreen() {
       
       dispatch({ type: 'UPDATE_USER_PROFILE', payload: updatedUser });
       dispatch({ type: 'SET_ONBOARDING_COMPLETED', payload: true });
+      
+      // Initialize daily progress for today
+      const today = new Date().toISOString().split('T')[0];
+      const initialProgress = {
+        date: today,
+        totalKgCO2: 0,
+        pointsEarned: 0,
+        habitsCompleted: [],
+        goalMet: false,
+      };
+      dispatch({ type: 'UPDATE_DAILY_PROGRESS', payload: initialProgress });
+      
+      // Go directly to the main app dashboard
       router.replace('/(tabs)');
     }
   };
@@ -236,7 +249,7 @@ export default function OnboardingScreen() {
           onPress={handleNext}
           disabled={!canProceed()}
         >
-          <Text style={styles.nextButtonText}>Finish Setup</Text>
+          <Text style={styles.nextButtonText}>Start Your Journey</Text>
         </TouchableOpacity>
       </ScrollView>
     </LinearGradient>
