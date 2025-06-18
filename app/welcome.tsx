@@ -88,14 +88,6 @@ export default function WelcomeScreen() {
           />
         </Animated.View>
 
-        {/* Welcome Text */}
-        <View style={styles.textContainer}>
-          <Text style={styles.subtitle}>Your carbon coach</Text>
-          <Text style={styles.description}>
-            Track your carbon footprint, build sustainable habits, and watch your plant grow as you make eco-friendly choices every day.
-          </Text>
-        </View>
-
         {/* Get Started Button */}
         <Animated.View style={[styles.buttonContainer, buttonAnimatedStyle]}>
           <TouchableOpacity
