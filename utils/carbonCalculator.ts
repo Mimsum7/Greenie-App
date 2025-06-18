@@ -7,10 +7,8 @@ interface ActivityEmission {
 const emissionFactors: ActivityEmission[] = [
   { type: 'car', factor: 0.21, unit: 'km' },
   { type: 'transit', factor: 0.089, unit: 'km' },
-  { type: 'electricity', factor: 0.5, unit: 'kWh' },
   { type: 'shower', factor: 0.5, unit: 'minutes' },
   { type: 'cooking', factor: 0.3, unit: 'hours' },
-  { type: 'coffee', factor: 0.125, unit: 'cups' },
   { type: 'waste', factor: 1.2, unit: 'kg' },
 ];
 
@@ -33,10 +31,8 @@ export function getActivityTypes() {
   return [
     { id: 'car', name: 'Car Commute', icon: 'Car', unit: 'km' },
     { id: 'transit', name: 'Public Transit', icon: 'Train', unit: 'km' },
-    { id: 'electricity', name: 'Electricity', icon: 'Zap', unit: 'kWh' },
     { id: 'shower', name: 'Hot Shower', icon: 'ShowerHead', unit: 'minutes' },
     { id: 'cooking', name: 'Gas Cooking', icon: 'ChefHat', unit: 'hours' },
-    { id: 'coffee', name: 'Coffee', icon: 'Coffee', unit: 'cups' },
     { id: 'waste', name: 'Waste', icon: 'Trash2', unit: 'kg' },
   ];
 }

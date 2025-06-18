@@ -14,7 +14,11 @@ export default function LogActivityScreen() {
   const [isCalculated, setIsCalculated] = useState(false);
   
   const { state, dispatch } = useApp();
-  const activityTypes = getActivityTypes();
+  
+  // Filter out coffee and electricity from activity types
+  const activityTypes = getActivityTypes().filter(type => 
+    type.id !== 'coffee' && type.id !== 'electricity'
+  );
   
   const todayActivities = state.activities.filter(activity => {
     const today = new Date().toISOString().split('T')[0];

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { Flame, Trophy, MessageCircle, History, Activity } from 'lucide-react-native';
+import { Flame, Trophy, MessageCircle, History, Activity, Plus } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PlantGraphic } from '@/components/PlantGraphic';
 import { ProgressBar } from '@/components/ProgressBar';
@@ -59,6 +59,18 @@ export default function DashboardScreen() {
     }
   };
 
+  const handleAddHabit = (habitId: string) => {
+    const updatedActiveHabits = [...user.activeHabits, habitId];
+    dispatch({ 
+      type: 'UPDATE_USER_PROFILE', 
+      payload: { activeHabits: updatedActiveHabits }
+    });
+  };
+
+  const availableHabits = state.habits.filter(habit => 
+    !user.activeHabits.includes(habit.id)
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
@@ -66,16 +78,17 @@ export default function DashboardScreen() {
         style={styles.gradient}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
+          {/* Daily Tip Banner - Moved to top */}
+          <View style={styles.tipBanner}>
+            <Text style={styles.tipHeader}>🌱 Greenie's Tip</Text>
+            <Text style={styles.tipText}>
+              Try biking 10 km tomorrow to save 2.1 kg CO₂ and earn 8 points!
+            </Text>
+          </View>
+
           {/* Header */}
           <View style={styles.header}>
             <Text style={styles.greeting}>Hi, Alexandra!</Text>
-            <Text style={styles.date}>
-              {new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </Text>
           </View>
 
           {/* Plant Growth Panel */}
@@ -142,17 +155,43 @@ export default function DashboardScreen() {
 
           {/* Habit Tracker Mini-Panel */}
           <View style={styles.habitsPanel}>
-            <Text style={styles.panelTitle}>Today's Habits</Text>
-            {activeHabits.map((habit) => (
-              <HabitCheckbox
-                key={habit.id}
-                label={habit.name}
-                completed={dailyProgress.habitsCompleted.includes(habit.id)}
-                onToggle={() => handleHabitToggle(habit.id)}
-                points={habit.points}
-              />
-            ))}
-            <Text style={styles.todayPoints}>+{dailyProgress.pointsEarned} pts today</Text>
+            <View style={styles.habitsPanelHeader}>
+              <Text style={styles.panelTitle}>Today's Habits</Text>
+              {availableHabits.length > 0 && (
+                <TouchableOpacity 
+                  style={styles.addHabitButton}
+                  onPress={() => router.push('/habits')}
+                >
+                  <Plus size={16} color="#22C55E" />
+                  <Text style={styles.addHabitText}>Add Habit</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+            
+            {activeHabits.length === 0 ? (
+              <View style={styles.noHabitsContainer}>
+                <Text style={styles.noHabitsText}>No habits selected yet</Text>
+                <TouchableOpacity 
+                  style={styles.selectHabitsButton}
+                  onPress={() => router.push('/habits')}
+                >
+                  <Text style={styles.selectHabitsButtonText}>Select Habits</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                {activeHabits.map((habit) => (
+                  <HabitCheckbox
+                    key={habit.id}
+                    label={habit.name}
+                    completed={dailyProgress.habitsCompleted.includes(habit.id)}
+                    onToggle={() => handleHabitToggle(habit.id)}
+                    points={habit.points}
+                  />
+                ))}
+                <Text style={styles.todayPoints}>+{dailyProgress.pointsEarned} pts today</Text>
+              </>
+            )}
           </View>
 
           {/* Quick Action Buttons */}
@@ -181,14 +220,6 @@ export default function DashboardScreen() {
               <Text style={styles.actionButtonText}>Chat with Greenie</Text>
             </TouchableOpacity>
           </View>
-
-          {/* Daily Tip Banner */}
-          <View style={styles.tipBanner}>
-            <Text style={styles.tipHeader}>🌱 Greenie's Tip</Text>
-            <Text style={styles.tipText}>
-              Try biking 10 km tomorrow to save 2.1 kg CO₂ and earn 8 points!
-            </Text>
-          </View>
         </ScrollView>
       </LinearGradient>
     </SafeAreaView>
@@ -216,6 +247,26 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     color: '#6B7280',
   },
+  tipBanner: {
+    backgroundColor: '#FFFBEB',
+    borderRadius: 16,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '#FDE68A',
+    marginBottom: 20,
+  },
+  tipHeader: {
+    fontSize: 16,
+    fontFamily: 'Inter-SemiBold',
+    color: '#92400E',
+    marginBottom: 8,
+  },
+  tipText: {
+    fontSize: 14,
+    fontFamily: 'Inter-Regular',
+    color: '#78350F',
+    lineHeight: 20,
+  },
   header: {
     marginBottom: 24,
   },
@@ -224,11 +275,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold',
     color: '#166534',
     marginBottom: 4,
-  },
-  date: {
-    fontSize: 16,
-    fontFamily: 'Inter-Medium',
-    color: '#374151',
   },
   plantPanel: {
     backgroundColor: '#FFFFFF',
@@ -353,6 +399,49 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 4,
   },
+  habitsPanelHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  addHabitButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: '#F0FDF4',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#BBF7D0',
+  },
+  addHabitText: {
+    fontSize: 12,
+    fontFamily: 'Inter-SemiBold',
+    color: '#22C55E',
+  },
+  noHabitsContainer: {
+    alignItems: 'center',
+    paddingVertical: 20,
+  },
+  noHabitsText: {
+    fontSize: 14,
+    fontFamily: 'Inter-Medium',
+    color: '#6B7280',
+    marginBottom: 12,
+  },
+  selectHabitsButton: {
+    backgroundColor: '#22C55E',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 12,
+  },
+  selectHabitsButtonText: {
+    fontSize: 14,
+    fontFamily: 'Inter-SemiBold',
+    color: '#FFFFFF',
+  },
   todayPoints: {
     fontSize: 16,
     fontFamily: 'Inter-Bold',
@@ -384,24 +473,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontFamily: 'Inter-SemiBold',
     color: '#FFFFFF',
-  },
-  tipBanner: {
-    backgroundColor: '#FFFBEB',
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#FDE68A',
-  },
-  tipHeader: {
-    fontSize: 16,
-    fontFamily: 'Inter-SemiBold',
-    color: '#92400E',
-    marginBottom: 8,
-  },
-  tipText: {
-    fontSize: 14,
-    fontFamily: 'Inter-Regular',
-    color: '#78350F',
-    lineHeight: 20,
   },
 });

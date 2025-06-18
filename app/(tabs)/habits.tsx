@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Calendar, Award } from 'lucide-react-native';
+import { Calendar, Award, Plus } from 'lucide-react-native';
 import { HabitCheckbox } from '@/components/HabitCheckbox';
 import { useApp } from '@/contexts/AppContext';
 
@@ -71,6 +71,9 @@ export default function HabitsScreen() {
   const calendarData = generateCalendarData();
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
+  const activeHabits = habits.filter(habit => user.activeHabits.includes(habit.id));
+  const availableHabits = habits.filter(habit => !user.activeHabits.includes(habit.id));
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
@@ -105,20 +108,61 @@ export default function HabitsScreen() {
 
           {activeTab === 'habits' ? (
             <View style={styles.habitsContent}>
-              <Text style={styles.sectionTitle}>Select Active Habits</Text>
-              <Text style={styles.sectionSubtitle}>
-                Choose which habits you want to track daily
-              </Text>
-              
-              {habits.map((habit) => (
-                <HabitCheckbox
-                  key={habit.id}
-                  label={habit.name}
-                  completed={user.activeHabits.includes(habit.id)}
-                  onToggle={() => toggleHabit(habit.id)}
-                  points={habit.points}
-                />
-              ))}
+              {/* Active Habits Section */}
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Active Habits</Text>
+                <Text style={styles.sectionSubtitle}>
+                  These habits appear on your dashboard
+                </Text>
+                
+                {activeHabits.length === 0 ? (
+                  <View style={styles.emptyState}>
+                    <Text style={styles.emptyStateText}>No active habits yet</Text>
+                    <Text style={styles.emptyStateSubtext}>Select habits below to get started</Text>
+                  </View>
+                ) : (
+                  activeHabits.map((habit) => (
+                    <HabitCheckbox
+                      key={habit.id}
+                      label={habit.name}
+                      completed={false}
+                      onToggle={() => toggleHabit(habit.id)}
+                      points={habit.points}
+                      disabled={false}
+                    />
+                  ))
+                )}
+              </View>
+
+              {/* Available Habits Section */}
+              {availableHabits.length > 0 && (
+                <View style={styles.section}>
+                  <View style={styles.sectionHeader}>
+                    <Plus size={20} color="#22C55E" />
+                    <Text style={styles.sectionTitle}>Add More Habits</Text>
+                  </View>
+                  <Text style={styles.sectionSubtitle}>
+                    Choose additional habits to track
+                  </Text>
+                  
+                  {availableHabits.map((habit) => (
+                    <TouchableOpacity
+                      key={habit.id}
+                      style={styles.availableHabitCard}
+                      onPress={() => toggleHabit(habit.id)}
+                    >
+                      <View style={styles.habitInfo}>
+                        <Text style={styles.habitName}>{habit.name}</Text>
+                        <Text style={styles.habitDescription}>{habit.description}</Text>
+                      </View>
+                      <View style={styles.addButton}>
+                        <Plus size={16} color="#22C55E" />
+                        <Text style={styles.habitPoints}>+{habit.points} pts</Text>
+                      </View>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
 
               {/* Habit Streaks */}
               <View style={styles.streaksSection}>
@@ -279,17 +323,88 @@ const styles = StyleSheet.create({
   habitsContent: {
     flex: 1,
   },
+  section: {
+    marginBottom: 32,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
   sectionTitle: {
     fontSize: 18,
     fontFamily: 'Inter-SemiBold',
     color: '#374151',
-    marginBottom: 8,
   },
   sectionSubtitle: {
     fontSize: 14,
     fontFamily: 'Inter-Medium',
     color: '#6B7280',
     marginBottom: 20,
+  },
+  emptyState: {
+    alignItems: 'center',
+    paddingVertical: 32,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    borderStyle: 'dashed',
+  },
+  emptyStateText: {
+    fontSize: 16,
+    fontFamily: 'Inter-SemiBold',
+    color: '#6B7280',
+    marginBottom: 4,
+  },
+  emptyStateSubtext: {
+    fontSize: 14,
+    fontFamily: 'Inter-Regular',
+    color: '#9CA3AF',
+  },
+  availableHabitCard: {
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 12,
+    marginVertical: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: '#F3F4F6',
+  },
+  habitInfo: {
+    flex: 1,
+  },
+  habitName: {
+    fontSize: 16,
+    fontFamily: 'Inter-SemiBold',
+    color: '#374151',
+    marginBottom: 4,
+  },
+  habitDescription: {
+    fontSize: 14,
+    fontFamily: 'Inter-Regular',
+    color: '#6B7280',
+  },
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#F0FDF4',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  habitPoints: {
+    fontSize: 12,
+    fontFamily: 'Inter-SemiBold',
+    color: '#22C55E',
   },
   streaksSection: {
     marginTop: 32,
