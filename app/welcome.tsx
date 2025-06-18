@@ -37,7 +37,7 @@ export default function WelcomeScreen() {
         withSpring(0, { duration: 2000 })
       ),
       -1,
-      true
+      false
     );
   }, []);
 
