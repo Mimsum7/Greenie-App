@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Car, Brain as Train, Bike, Utensils, Leaf, Fish, Zap, Fuel, ChevronDown, ChevronUp, Bus } from 'lucide-react-native';
@@ -101,6 +101,16 @@ export default function OnboardingScreen() {
       return showCustomGoal ? customGoal.trim() !== '' : preferences.carbonGoal > 0;
     }
     return selectedHabits.length > 0;
+  };
+
+  const handleNumberPadPress = (value: string | number) => {
+    if (value === '⌫') {
+      setCustomGoal(prev => prev.slice(0, -1));
+    } else if (value === '.' && !customGoal.includes('.')) {
+      setCustomGoal(prev => prev + '.');
+    } else if (typeof value === 'number' || typeof value === 'string') {
+      setCustomGoal(prev => prev + value.toString());
+    }
   };
 
   if (step === 1) {
@@ -288,17 +298,11 @@ export default function OnboardingScreen() {
                   <TouchableOpacity
                     key={num}
                     style={styles.numberButton}
-                    onPress={() => {
-                      if (num === '⌫') {
-                        setCustomGoal(prev => prev.slice(0, -1));
-                      } else if (num === '.' && !customGoal.includes('.')) {
-                        setCustomGoal(prev => prev + '.');
-                      } else if (typeof num === 'number') {
-                        setCustomGoal(prev => prev + num.toString());
-                      }
-                    }}
+                    onPress={() => handleNumberPadPress(num)}
                   >
-                    <Text style={styles.numberButtonText}>{num}</Text>
+                    <View>
+                      <Text style={styles.numberButtonText}>{num}</Text>
+                    </View>
                   </TouchableOpacity>
                 ))}
               </View>
