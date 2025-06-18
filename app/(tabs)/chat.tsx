@@ -33,7 +33,7 @@ export default function ChatScreen() {
   const loadDailyTip = async () => {
     const tipMessage = {
       id: Date.now().toString(),
-      text: "Hey there 🌍! I’m Greenie, your carbon-cutting companion! To get started, tell me one thing you did today — even something small like walking instead of driving or skipping plastic. Ready?",
+      text: "Hey there 🌍! I'm Greenie, your carbon-cutting companion! To get started, tell me one thing you did today — even something small like walking instead of driving or skipping plastic. Ready?",
       isUser: false,
       timestamp: new Date(),
     };
@@ -83,6 +83,8 @@ export default function ChatScreen() {
       return "Your plant is growing beautifully! 🌱 Keep completing your daily habits to help it thrive. Each habit you complete earns points that help your plant grow from a seed to a mighty tree!";
     } else if (input.includes('streak') || input.includes('habit')) {
       return "Great job on maintaining your habits! 🔥 Consistency is key to creating lasting change. Keep up your streak by focusing on one habit at a time, and don't forget to celebrate your progress!";
+    } else if (input.includes('errand') || input.includes('trip') || input.includes('efficient')) {
+      return "🚗 Why it matters: Short, separate car trips burn more fuel because engines use the most fuel when cold. By grouping tasks (like grocery shopping, pharmacy, and picking someone up), your car runs more efficiently and produces fewer emissions.\n\n🌍 Carbon savings: You can cut 1–2 kg of CO₂ in a single day just by optimizing your driving pattern!\n\nWould you like some more green advice to make your day Greenie-r?";
     } else {
       return "That's interesting! As your eco-coach, I'm here to help you make sustainable choices. Whether it's reducing your carbon footprint, building green habits, or staying motivated, I've got tips and encouragement for you! 🌱 What sustainability goal are you working on?";
     }
@@ -91,7 +93,7 @@ export default function ChatScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <LinearGradient
-        colors={['#F0FDF4', '#DCFCE7']}
+        colors={['#C0F0C0', '#A6E6A6']} // 20% darker greens
         style={styles.gradient}
       >
         <KeyboardAvoidingView 
@@ -137,12 +139,12 @@ export default function ChatScreen() {
                 value={inputText}
                 onChangeText={setInputText}
                 placeholder="Ask Greenie..."
-                placeholderTextColor="#9CA3AF"
+                placeholderTextColor="#777777" // 20% darker
                 multiline
                 maxLength={500}
               />
               <TouchableOpacity style={styles.attachButton}>
-                <Paperclip size={20} color="#6B7280" />
+                <Paperclip size={20} color="#545454" /> {/* 20% darker gray */}
               </TouchableOpacity>
             </View>
             <TouchableOpacity
@@ -174,19 +176,19 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#B8B8B8', // 20% darker border
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
   title: {
     fontSize: 20,
     fontFamily: 'Inter-Bold',
-    color: '#166534',
+    color: '#0F4A1A', // 20% darker green
     marginBottom: 2,
   },
   subtitle: {
     fontSize: 14,
     fontFamily: 'Inter-Medium',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
   },
   messagesContainer: {
     flex: 1,
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   typingBubble: {
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#E6E6E6', // 20% darker background
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 20,
@@ -210,7 +212,7 @@ const styles = StyleSheet.create({
   typingText: {
     fontSize: 14,
     fontFamily: 'Inter-Medium',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
     fontStyle: 'italic',
   },
   inputContainer: {
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: '#B8B8B8', // 20% darker border
     gap: 12,
   },
   inputWrapper: {
@@ -230,7 +232,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 24,
     borderWidth: 1,
-    borderColor: '#D1D5DB',
+    borderColor: '#A8A8A8', // 20% darker border
     paddingHorizontal: 16,
     paddingVertical: 8,
     maxHeight: 100,
@@ -239,7 +241,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontFamily: 'Inter-Regular',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     paddingVertical: 8,
     textAlignVertical: 'center',
   },
@@ -255,9 +257,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sendButtonActive: {
-    backgroundColor: '#22C55E',
+    backgroundColor: '#1B8B3B', // 20% darker green
   },
   sendButtonInactive: {
-    backgroundColor: '#D1D5DB',
+    backgroundColor: '#A8A8A8', // 20% darker gray
   },
 });

@@ -121,23 +121,25 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#228b22',
+    backgroundColor: '#1A6B1A', // 20% darker green
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 32,
     position: 'relative',
+    maxWidth: width * 0.9,
   },
   logoContainer: {
-    marginBottom: 24,
+    marginBottom: 17, // Reduced by 30%
     alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    width: 280,
-    height: 280,
+    width: 196, // Reduced by 30%
+    height: 196, // Reduced by 30%
     shadowColor: '#1b3b2f',
     shadowOffset: {
       width: 0,
@@ -149,35 +151,35 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     alignItems: 'center',
-    marginBottom: 64,
+    marginBottom: 45, // Reduced by 30%
     maxWidth: width * 0.85,
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 14, // Reduced by 30%
     fontFamily: 'Inter-SemiBold',
     color: '#ffffff',
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: 17, // Reduced by 30%
     letterSpacing: 0.5,
   },
   description: {
-    fontSize: 16,
+    fontSize: 11, // Reduced by 30%
     fontFamily: 'Inter-Medium',
     color: '#ffffff',
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 17, // Reduced by 30%
     opacity: 0.9,
   },
   buttonContainer: {
     width: '100%',
-    maxWidth: 280,
-    marginBottom: 48,
+    maxWidth: 196, // Reduced by 30%
+    marginBottom: 34, // Reduced by 30%
   },
   getStartedButton: {
-    backgroundColor: '#1b3b2f',
-    paddingVertical: 18,
-    paddingHorizontal: 32,
-    borderRadius: 28,
+    backgroundColor: '#152F25', // 20% darker
+    paddingVertical: 13, // Reduced by 30%
+    paddingHorizontal: 22, // Reduced by 30%
+    borderRadius: 20, // Reduced by 30%
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000000',
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: 13, // Reduced by 30%
     fontFamily: 'Inter-Bold',
     color: '#ffffff',
     letterSpacing: 0.5,
@@ -209,23 +211,23 @@ const styles = StyleSheet.create({
     opacity: 0.1,
   },
   circle1: {
-    width: 100,
-    height: 100,
-    backgroundColor: '#ffd93b',
+    width: 70, // Reduced by 30%
+    height: 70, // Reduced by 30%
+    backgroundColor: '#CC9E00', // 20% darker yellow
     top: height * 0.15,
     left: width * 0.1,
   },
   circle2: {
-    width: 60,
-    height: 60,
-    backgroundColor: '#ff6b6b',
+    width: 42, // Reduced by 30%
+    height: 42, // Reduced by 30%
+    backgroundColor: '#CC4444', // 20% darker red
     top: height * 0.25,
     right: width * 0.15,
   },
   circle3: {
-    width: 80,
-    height: 80,
-    backgroundColor: '#8b5e3c',
+    width: 56, // Reduced by 30%
+    height: 56, // Reduced by 30%
+    backgroundColor: '#6B4B30', // 20% darker brown
     bottom: height * 0.2,
     left: width * 0.2,
   },

@@ -10,37 +10,37 @@ export const plantStages: PlantStage[] = [
   {
     id: 1,
     name: 'Sprout',
-    minPoints: 25,
+    minPoints: 35, // +10 points
     description: 'First signs of growth are appearing',
   },
   {
     id: 2,
     name: 'Seedling',
-    minPoints: 75,
+    minPoints: 85, // +10 points
     description: 'Your plant is growing stronger',
   },
   {
     id: 3,
     name: 'Young Plant',
-    minPoints: 150,
+    minPoints: 160, // +10 points
     description: 'Healthy growth and development',
   },
   {
     id: 4,
     name: 'Mature Plant',
-    minPoints: 300,
+    minPoints: 310, // +10 points
     description: 'A thriving, mature plant',
   },
   {
     id: 5,
     name: 'Flowering Plant',
-    minPoints: 500,
+    minPoints: 510, // +10 points
     description: 'Beautiful blooms reward your dedication',
   },
   {
     id: 6,
     name: 'Tree',
-    minPoints: 1000,
+    minPoints: 1010, // +10 points
     description: 'A mighty tree that helps clean the air',
   },
 ];

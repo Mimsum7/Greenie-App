@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Car, Brain as Train, Bike, Utensils, Leaf, Fish, Zap, Fuel, ChevronDown, ChevronUp } from 'lucide-react-native';
+import { Car, Brain as Train, Bike, Utensils, Leaf, Fish, Zap, Fuel, ChevronDown, ChevronUp, Bus } from 'lucide-react-native';
 import { useApp } from '@/contexts/AppContext';
 
 export default function OnboardingScreen() {
@@ -23,14 +23,14 @@ export default function OnboardingScreen() {
 
   const dietOptions = [
     { id: 'omnivore', label: 'Omnivore', icon: Utensils },
-    { id: 'vegetarian', label: 'Vegetarian', icon: Leaf },
+    { id: 'vegetarian', label: 'Vegetarian 🧀', icon: Leaf },
     { id: 'vegan', label: 'Vegan', icon: Leaf },
     { id: 'pescatarian', label: 'Pescatarian', icon: Fish },
   ];
 
   const commuteOptions = [
     { id: 'car', label: 'Car', icon: Car },
-    { id: 'transit', label: 'Public Transit', icon: Train },
+    { id: 'transit', label: 'Public Transit 🚌', icon: Bus },
     { id: 'bike', label: 'Bike/Walk', icon: Bike },
   ];
 
@@ -105,7 +105,7 @@ export default function OnboardingScreen() {
   if (step === 1) {
     return (
       <LinearGradient
-        colors={['#F0FDF4', '#DCFCE7']}
+        colors={['#C0F0C0', '#A6E6A6']} // 20% darker greens
         style={styles.container}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -130,7 +130,7 @@ export default function OnboardingScreen() {
                   >
                     <IconComponent 
                       size={32} 
-                      color={preferences.diet === option.id ? '#FFFFFF' : '#22C55E'} 
+                      color={preferences.diet === option.id ? '#FFFFFF' : '#1B8B3B'} // 20% darker green
                     />
                     <Text style={[
                       styles.optionText,
@@ -160,7 +160,7 @@ export default function OnboardingScreen() {
                   >
                     <IconComponent 
                       size={32} 
-                      color={preferences.commute === option.id ? '#FFFFFF' : '#22C55E'} 
+                      color={preferences.commute === option.id ? '#FFFFFF' : '#1B8B3B'} // 20% darker green
                     />
                     <Text style={[
                       styles.optionText,
@@ -191,7 +191,7 @@ export default function OnboardingScreen() {
                     >
                       <IconComponent 
                         size={32} 
-                        color={preferences.carType === option.id ? '#FFFFFF' : '#22C55E'} 
+                        color={preferences.carType === option.id ? '#FFFFFF' : '#1B8B3B'} // 20% darker green
                       />
                       <Text style={[
                         styles.optionText,
@@ -221,7 +221,7 @@ export default function OnboardingScreen() {
   if (step === 2) {
     return (
       <LinearGradient
-        colors={['#F0FDF4', '#DCFCE7']}
+        colors={['#C0F0C0', '#A6E6A6']} // 20% darker greens
         style={styles.container}
       >
         <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -302,7 +302,7 @@ export default function OnboardingScreen() {
             onPress={() => setShowGoalHelp(!showGoalHelp)}
           >
             <Text style={styles.helpButtonText}>Need help setting your goal?</Text>
-            {showGoalHelp ? <ChevronUp size={20} color="#22C55E" /> : <ChevronDown size={20} color="#22C55E" />}
+            {showGoalHelp ? <ChevronUp size={20} color="#1B8B3B" /> : <ChevronDown size={20} color="#1B8B3B" />}
           </TouchableOpacity>
 
           {showGoalHelp && (
@@ -367,7 +367,7 @@ export default function OnboardingScreen() {
 
   return (
     <LinearGradient
-      colors={['#F0FDF4', '#DCFCE7']}
+      colors={['#C0F0C0', '#A6E6A6']} // 20% darker greens
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -438,14 +438,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontFamily: 'Inter-Bold',
-    color: '#166534',
+    color: '#0F4A1A', // 20% darker green
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     fontFamily: 'Inter-Medium',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     textAlign: 'center',
   },
   section: {
@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     marginBottom: 16,
     textAlign: 'center',
   },
@@ -472,16 +472,16 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: '#B8B8B8', // 20% darker border
   },
   selectedCard: {
-    backgroundColor: '#22C55E',
-    borderColor: '#22C55E',
+    backgroundColor: '#1B8B3B', // 20% darker green
+    borderColor: '#1B8B3B',
   },
   optionText: {
     fontSize: 14,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     marginTop: 8,
     textAlign: 'center',
   },
@@ -503,17 +503,17 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: '#B8B8B8', // 20% darker border
   },
   goalText: {
     fontSize: 18,
     fontFamily: 'Inter-Bold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
   },
   goalSubtext: {
     fontSize: 12,
     fontFamily: 'Inter-Medium',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
   },
   customGoalButton: {
     backgroundColor: '#FFFFFF',
@@ -521,13 +521,13 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: '#B8B8B8', // 20% darker border
     marginBottom: 16,
   },
   customGoalText: {
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
   },
   customGoalInput: {
     backgroundColor: '#FFFFFF',
@@ -538,14 +538,14 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 14,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     marginBottom: 12,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F2F2F2', // 20% darker background
     padding: 16,
     borderRadius: 12,
     marginBottom: 16,
@@ -553,14 +553,14 @@ const styles = StyleSheet.create({
   inputValue: {
     fontSize: 24,
     fontFamily: 'Inter-Bold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     minWidth: 60,
     textAlign: 'center',
   },
   inputUnit: {
     fontSize: 14,
     fontFamily: 'Inter-Medium',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
     marginLeft: 8,
   },
   numberPad: {
@@ -571,7 +571,7 @@ const styles = StyleSheet.create({
   numberButton: {
     width: '30%',
     aspectRatio: 1,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#E6E6E6', // 20% darker background
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -579,7 +579,7 @@ const styles = StyleSheet.create({
   numberButtonText: {
     fontSize: 18,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
   },
   helpButton: {
     flexDirection: 'row',
@@ -592,7 +592,7 @@ const styles = StyleSheet.create({
   helpButtonText: {
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
-    color: '#22C55E',
+    color: '#1B8B3B', // 20% darker green
   },
   helpContent: {
     backgroundColor: '#FFFFFF',
@@ -603,20 +603,20 @@ const styles = StyleSheet.create({
   helpTitle: {
     fontSize: 18,
     fontFamily: 'Inter-Bold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     marginBottom: 12,
   },
   helpSubtitle: {
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     marginTop: 16,
     marginBottom: 8,
   },
   helpText: {
     fontSize: 14,
     fontFamily: 'Inter-Regular',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
     lineHeight: 20,
     marginBottom: 4,
   },
@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
   },
   tableHeader: {
     flexDirection: 'row',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F2F2F2', // 20% darker background
     padding: 12,
     borderRadius: 8,
     marginBottom: 8,
@@ -634,7 +634,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     fontFamily: 'Inter-Bold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     textAlign: 'center',
   },
   tableRow: {
@@ -642,20 +642,20 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#F3F4F6',
+    borderBottomColor: '#E6E6E6', // 20% darker border
   },
   tableCellBold: {
     flex: 1,
     fontSize: 12,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     textAlign: 'center',
   },
   tableCell: {
     flex: 1,
     fontSize: 12,
     fontFamily: 'Inter-Regular',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
     textAlign: 'center',
   },
   habitsGrid: {
@@ -667,7 +667,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: '#B8B8B8', // 20% darker border
   },
   habitHeader: {
     flexDirection: 'row',
@@ -678,14 +678,14 @@ const styles = StyleSheet.create({
   habitName: {
     fontSize: 16,
     fontFamily: 'Inter-SemiBold',
-    color: '#374151',
+    color: '#2A3A2A', // 20% darker gray
     flex: 1,
   },
   habitPoints: {
     fontSize: 14,
     fontFamily: 'Inter-SemiBold',
-    color: '#22C55E',
-    backgroundColor: '#F0FDF4',
+    color: '#1B8B3B', // 20% darker green
+    backgroundColor: '#C0F0C0', // 20% darker background
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 8,
@@ -693,18 +693,18 @@ const styles = StyleSheet.create({
   habitDescription: {
     fontSize: 14,
     fontFamily: 'Inter-Regular',
-    color: '#6B7280',
+    color: '#545454', // 20% darker gray
     lineHeight: 20,
   },
   nextButton: {
-    backgroundColor: '#22C55E',
+    backgroundColor: '#1B8B3B', // 20% darker green
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 'auto',
   },
   finishButton: {
-    backgroundColor: '#22C55E',
+    backgroundColor: '#1B8B3B', // 20% darker green
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
