@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import { PlantGraphic } from '@/components/PlantGraphic';
-import { plantStages } from '@/utils/plantStages';
 import { useApp } from '@/contexts/AppContext';
 
 export default function SplashScreen() {
@@ -35,22 +33,24 @@ export default function SplashScreen() {
   }, [isReady, state.isAuthenticated, state.onboardingCompleted]);
 
   return (
-    <LinearGradient
-      colors={['#DCFCE7', '#BBF7D0', '#86EFAC']}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <View style={styles.content}>
-        <PlantGraphic stage={plantStages[1]} size={100} />
+        <Image
+          source={require('@/assets/images/Greenie logo.png')}
+          style={styles.logo}
+          resizeMode="contain"
+        />
         <Text style={styles.title}>Greenie</Text>
         <Text style={styles.subtitle}>Grow your green habits</Text>
       </View>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#2BAE2B', // Same color as welcome page
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -58,17 +58,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo: {
+    width: 100,
+    height: 100,
+    shadowColor: '#1b3b2f',
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 16,
+    elevation: 8,
+  },
   title: {
     fontSize: 36,
     fontFamily: 'Inter-Bold',
-    color: '#166534',
+    color: '#FFFFFF', // White text for better contrast on green background
     marginTop: 24,
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 18,
     fontFamily: 'Inter-Medium',
-    color: '#15803D',
+    color: '#FFFFFF', // White text for better contrast
     textAlign: 'center',
   },
 });
