@@ -21,6 +21,7 @@ export default function WelcomeScreen() {
   const { dispatch } = useApp();
   const logoScale = useSharedValue(0);
   const buttonScale = useSharedValue(1);
+  const floatingAnimation = useSharedValue(0);
 
   useEffect(() => {
     // Logo entrance animation
@@ -28,12 +29,25 @@ export default function WelcomeScreen() {
       damping: 8,
       stiffness: 100,
     });
+
+    // Floating animation for logo
+    floatingAnimation.value = withRepeat(
+      withSequence(
+        withSpring(1, { duration: 2000 }),
+        withSpring(0, { duration: 2000 })
+      ),
+      -1,
+      false
+    );
   }, []);
 
   const logoAnimatedStyle = useAnimatedStyle(() => {
+    const translateY = interpolate(floatingAnimation.value, [0, 1], [0, -10]);
+    
     return {
       transform: [
-        { scale: logoScale.value }
+        { scale: logoScale.value },
+        { translateY }
       ],
     };
   });
@@ -81,43 +95,57 @@ export default function WelcomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Logo Section */}
-        <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
-          <Image
-            source={require('@/assets/images/Greenie logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-        </Animated.View>
+      <LinearGradient
+        colors={['#f2f5f0', '#a8d5ba', '#228b22']}
+        style={styles.gradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+      >
+        <View style={styles.content}>
+          {/* Logo Section */}
+          <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
+            <Image
+              source={require('@/assets/images/Greenie logo.png')}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </Animated.View>
 
-        {/* Welcome Text */}
-        <View style={styles.textContainer}>
-          <Text style={styles.welcomeTitle}>Welcome to Greenie</Text>
-          <Text style={styles.subtitle}>Your carbon coach</Text>
-          <Text style={styles.description}>
-            Track your carbon footprint, build sustainable habits, and watch your plant grow as you make eco-friendly choices every day.
-          </Text>
+          {/* Welcome Text */}
+          <View style={styles.textContainer}>
+            <Text style={styles.welcomeTitle}>Welcome to Greenie</Text>
+            <Text style={styles.subtitle}>Your carbon coach</Text>
+            <Text style={styles.description}>
+              Track your carbon footprint, build sustainable habits, and watch your plant grow as you make eco-friendly choices every day.
+            </Text>
+          </View>
+
+          {/* Get Started Button */}
+          <Animated.View style={[styles.buttonContainer, buttonAnimatedStyle]}>
+            <TouchableOpacity
+              style={styles.getStartedButton}
+              onPress={handleGetStarted}
+              activeOpacity={0.9}
+            >
+              <LinearGradient
+                colors={['#1b3b2f', '#228b22']}
+                style={styles.buttonGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Text style={styles.buttonText}>Get Started</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </Animated.View>
+
+          {/* Decorative Elements */}
+          <View style={styles.decorativeContainer}>
+            <View style={[styles.decorativeCircle, styles.circle1]} />
+            <View style={[styles.decorativeCircle, styles.circle2]} />
+            <View style={[styles.decorativeCircle, styles.circle3]} />
+          </View>
         </View>
-
-        {/* Get Started Button */}
-        <Animated.View style={[styles.buttonContainer, buttonAnimatedStyle]}>
-          <TouchableOpacity
-            style={styles.getStartedButton}
-            onPress={handleGetStarted}
-            activeOpacity={0.9}
-          >
-            <Text style={styles.buttonText}>Get Started</Text>
-          </TouchableOpacity>
-        </Animated.View>
-
-        {/* Decorative Elements */}
-        <View style={styles.decorativeContainer}>
-          <View style={[styles.decorativeCircle, styles.circle1]} />
-          <View style={[styles.decorativeCircle, styles.circle2]} />
-          <View style={[styles.decorativeCircle, styles.circle3]} />
-        </View>
-      </View>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
@@ -125,7 +153,9 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#40E0D0', // Solid light turquoise background
+  },
+  gradient: {
+    flex: 1,
   },
   content: {
     flex: 1,
@@ -189,12 +219,7 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   getStartedButton: {
-    backgroundColor: '#00FF00', // Solid primary green background
-    paddingVertical: 18,
-    paddingHorizontal: 32,
     borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
     shadowColor: '#1b3b2f',
     shadowOffset: {
       width: 0,
@@ -203,6 +228,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 6,
+  },
+  buttonGradient: {
+    paddingVertical: 18,
+    paddingHorizontal: 32,
+    borderRadius: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 18,
