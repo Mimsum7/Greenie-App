@@ -23,14 +23,14 @@ export default function OnboardingScreen() {
 
   const dietOptions = [
     { id: 'omnivore', label: 'Omnivore', icon: Utensils },
-    { id: 'vegetarian', label: 'Vegetarian 🧀', icon: Leaf },
+    { id: 'vegetarian', label: 'Vegetarian 🧀', icon: Utensils }, // Changed to cheese emoji and Utensils icon
     { id: 'vegan', label: 'Vegan', icon: Leaf },
     { id: 'pescatarian', label: 'Pescatarian', icon: Fish },
   ];
 
   const commuteOptions = [
     { id: 'car', label: 'Car', icon: Car },
-    { id: 'transit', label: 'Public Transit 🚌', icon: Bus },
+    { id: 'transit', label: 'Public Transit', icon: Bus }, // Removed emoji, kept Bus icon
     { id: 'bike', label: 'Bike/Walk', icon: Bike },
   ];
 

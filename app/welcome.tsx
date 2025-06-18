@@ -121,7 +121,7 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1A6B1A', // 20% darker green
+    backgroundColor: '#2BAE2B', // 20% lighter green
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     marginBottom: 34, // Reduced by 30%
   },
   getStartedButton: {
-    backgroundColor: '#152F25', // 20% darker
+    backgroundColor: '#1B4A30', // 20% lighter than previous dark green
     paddingVertical: 13, // Reduced by 30%
     paddingHorizontal: 22, // Reduced by 30%
     borderRadius: 20, // Reduced by 30%
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   buttonText: {
-    fontSize: 13, // Reduced by 30%
+    fontSize: 17, // 30% larger than previous 13px
     fontFamily: 'Inter-Bold',
     color: '#ffffff',
     letterSpacing: 0.5,
@@ -213,21 +213,21 @@ const styles = StyleSheet.create({
   circle1: {
     width: 70, // Reduced by 30%
     height: 70, // Reduced by 30%
-    backgroundColor: '#CC9E00', // 20% darker yellow
+    backgroundColor: '#FFE666', // 20% lighter yellow
     top: height * 0.15,
     left: width * 0.1,
   },
   circle2: {
     width: 42, // Reduced by 30%
     height: 42, // Reduced by 30%
-    backgroundColor: '#CC4444', // 20% darker red
+    backgroundColor: '#FF8888', // 20% lighter red
     top: height * 0.25,
     right: width * 0.15,
   },
   circle3: {
     width: 56, // Reduced by 30%
     height: 56, // Reduced by 30%
-    backgroundColor: '#6B4B30', // 20% darker brown
+    backgroundColor: '#A67C5A', // 20% lighter brown
     bottom: height * 0.2,
     left: width * 0.2,
   },
