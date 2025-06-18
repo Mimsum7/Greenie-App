@@ -68,7 +68,7 @@ export default function DashboardScreen() {
         <ScrollView contentContainerStyle={styles.scrollContent}>
           {/* Header */}
           <View style={styles.header}>
-            <Text style={styles.greeting}>Good morning, {user.name}!</Text>
+            <Text style={styles.greeting}>Hi, Alexandra!</Text>
             <Text style={styles.date}>
               {new Date().toLocaleDateString('en-US', { 
                 weekday: 'long', 
