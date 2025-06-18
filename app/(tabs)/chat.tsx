@@ -33,7 +33,7 @@ export default function ChatScreen() {
   const loadDailyTip = async () => {
     const tipMessage = {
       id: Date.now().toString(),
-      text: "🌱 Good morning! Here's your daily tip: Try biking 10 km tomorrow to save 2.1 kg CO₂ and earn 8 points! Every small change makes a big difference for our planet.",
+      text: "Hey there 🌍! I’m Greenie, your carbon-cutting companion! To get started, tell me one thing you did today — even something small like walking instead of driving or skipping plastic. Ready?",
       isUser: false,
       timestamp: new Date(),
     };
