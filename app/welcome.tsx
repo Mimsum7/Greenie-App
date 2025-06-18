@@ -7,9 +7,7 @@ import Animated, {
   useSharedValue, 
   useAnimatedStyle, 
   withSpring, 
-  withRepeat, 
-  withSequence,
-  interpolate
+  withSequence
 } from 'react-native-reanimated';
 import { useEffect } from 'react';
 import { useApp } from '@/contexts/AppContext';
@@ -21,7 +19,6 @@ export default function WelcomeScreen() {
   const { dispatch } = useApp();
   const logoScale = useSharedValue(0);
   const buttonScale = useSharedValue(1);
-  const floatingAnimation = useSharedValue(0);
 
   useEffect(() => {
     // Logo entrance animation
@@ -29,25 +26,12 @@ export default function WelcomeScreen() {
       damping: 8,
       stiffness: 100,
     });
-
-    // Floating animation for logo
-    floatingAnimation.value = withRepeat(
-      withSequence(
-        withSpring(1, { duration: 2000 }),
-        withSpring(0, { duration: 2000 })
-      ),
-      -1,
-      false
-    );
   }, []);
 
   const logoAnimatedStyle = useAnimatedStyle(() => {
-    const translateY = interpolate(floatingAnimation.value, [0, 1], [0, -10]);
-    
     return {
       transform: [
-        { scale: logoScale.value },
-        { translateY }
+        { scale: logoScale.value }
       ],
     };
   });
@@ -95,57 +79,42 @@ export default function WelcomeScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient
-        colors={['#f2f5f0', '#a8d5ba', '#228b22']}
-        style={styles.gradient}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-      >
-        <View style={styles.content}>
-          {/* Logo Section */}
-          <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
-            <Image
-              source={require('@/assets/images/Greenie logo.png')}
-              style={styles.logo}
-              resizeMode="contain"
-            />
-          </Animated.View>
+      <View style={styles.content}>
+        {/* Logo Section */}
+        <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
+          <Image
+            source={require('@/assets/images/Greenie logo.png')}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </Animated.View>
 
-          {/* Welcome Text */}
-          <View style={styles.textContainer}>
-            <Text style={styles.welcomeTitle}>Welcome to Greenie</Text>
-            <Text style={styles.subtitle}>Your carbon coach</Text>
-            <Text style={styles.description}>
-              Track your carbon footprint, build sustainable habits, and watch your plant grow as you make eco-friendly choices every day.
-            </Text>
-          </View>
-
-          {/* Get Started Button */}
-          <Animated.View style={[styles.buttonContainer, buttonAnimatedStyle]}>
-            <TouchableOpacity
-              style={styles.getStartedButton}
-              onPress={handleGetStarted}
-              activeOpacity={0.9}
-            >
-              <LinearGradient
-                colors={['#1b3b2f', '#228b22']}
-                style={styles.buttonGradient}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              >
-                <Text style={styles.buttonText}>Get Started</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </Animated.View>
-
-          {/* Decorative Elements */}
-          <View style={styles.decorativeContainer}>
-            <View style={[styles.decorativeCircle, styles.circle1]} />
-            <View style={[styles.decorativeCircle, styles.circle2]} />
-            <View style={[styles.decorativeCircle, styles.circle3]} />
-          </View>
+        {/* Welcome Text */}
+        <View style={styles.textContainer}>
+          <Text style={styles.subtitle}>Your carbon coach</Text>
+          <Text style={styles.description}>
+            Track your carbon footprint, build sustainable habits, and watch your plant grow as you make eco-friendly choices every day.
+          </Text>
         </View>
-      </LinearGradient>
+
+        {/* Get Started Button */}
+        <Animated.View style={[styles.buttonContainer, buttonAnimatedStyle]}>
+          <TouchableOpacity
+            style={styles.getStartedButton}
+            onPress={handleGetStarted}
+            activeOpacity={0.9}
+          >
+            <Text style={styles.buttonText}>Get Started</Text>
+          </TouchableOpacity>
+        </Animated.View>
+
+        {/* Decorative Elements */}
+        <View style={styles.decorativeContainer}>
+          <View style={[styles.decorativeCircle, styles.circle1]} />
+          <View style={[styles.decorativeCircle, styles.circle2]} />
+          <View style={[styles.decorativeCircle, styles.circle3]} />
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -153,9 +122,7 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  gradient: {
-    flex: 1,
+    backgroundColor: '#228b22',
   },
   content: {
     flex: 1,
@@ -170,8 +137,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 180,
-    height: 180,
+    width: 360,
+    height: 360,
     shadowColor: '#1b3b2f',
     shadowOffset: {
       width: 0,
@@ -186,21 +153,10 @@ const styles = StyleSheet.create({
     marginBottom: 64,
     maxWidth: width * 0.85,
   },
-  welcomeTitle: {
-    fontSize: 36,
-    fontFamily: 'Inter-Bold',
-    color: '#1b3b2f',
-    textAlign: 'center',
-    marginBottom: 12,
-    letterSpacing: -0.5,
-    textShadowColor: 'rgba(255, 255, 255, 0.8)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
-  },
   subtitle: {
     fontSize: 20,
     fontFamily: 'Inter-SemiBold',
-    color: '#8b5e3c',
+    color: '#ffffff',
     textAlign: 'center',
     marginBottom: 24,
     letterSpacing: 0.5,
@@ -208,10 +164,10 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     fontFamily: 'Inter-Medium',
-    color: '#1b3b2f',
+    color: '#ffffff',
     textAlign: 'center',
     lineHeight: 24,
-    opacity: 0.8,
+    opacity: 0.9,
   },
   buttonContainer: {
     width: '100%',
@@ -219,8 +175,13 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   getStartedButton: {
+    backgroundColor: '#1b3b2f',
+    paddingVertical: 18,
+    paddingHorizontal: 32,
     borderRadius: 28,
-    shadowColor: '#1b3b2f',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000000',
     shadowOffset: {
       width: 0,
       height: 4,
@@ -228,13 +189,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 6,
-  },
-  buttonGradient: {
-    paddingVertical: 18,
-    paddingHorizontal: 32,
-    borderRadius: 28,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 18,
