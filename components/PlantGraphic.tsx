@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Sprout, TreePine, Flower, Trees, Seed } from 'lucide-react-native';
+import { Sprout, TreePine, Flower, Trees, Bed as Seed } from 'lucide-react-native';
 import { PlantStage } from '@/types';
 
 interface PlantGraphicProps {
