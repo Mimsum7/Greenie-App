@@ -18,16 +18,12 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
 
     switch (stage.id) {
       case 0:
-        // Try to load the PNG image with error handling
+        // Use the new seed.png image for stage 0
         return (
           <Image
-            source={require('@/assets/images/seed stage.png')}
+            source={require('@/assets/images/seed.png')}
             style={{ width: size, height: size }}
             resizeMode="contain"
-            onError={(error) => {
-              console.warn('Failed to load seed image:', error);
-            }}
-            defaultSource={require('@/assets/images/seed stage.png')}
           />
         );
       case 1:
@@ -45,13 +41,9 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
       default:
         return (
           <Image
-            source={require('@/assets/images/seed stage.png')}
+            source={require('@/assets/images/seed.png')}
             style={{ width: size, height: size }}
             resizeMode="contain"
-            onError={(error) => {
-              console.warn('Failed to load seed image:', error);
-            }}
-            defaultSource={require('@/assets/images/seed stage.png')}
           />
         );
     }
