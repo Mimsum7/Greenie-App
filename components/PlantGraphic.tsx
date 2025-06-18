@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Bed as Seed, Sprout, TreePine, Flower, Trees } from 'lucide-react-native';
+import { View, StyleSheet, Image } from 'react-native';
+import { Sprout, TreePine, Flower, Trees } from 'lucide-react-native';
 import { PlantStage } from '@/types';
 
 interface PlantGraphicProps {
@@ -18,7 +18,14 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
 
     switch (stage.id) {
       case 0:
-        return <Seed {...iconProps} color="#8B4513" />;
+        // Use the custom seed image for stage 0
+        return (
+          <Image
+            source={require('@/assets/images/seed stage.png')}
+            style={{ width: size, height: size }}
+            resizeMode="contain"
+          />
+        );
       case 1:
         return <Sprout {...iconProps} color="#65A30D" />;
       case 2:
@@ -32,7 +39,13 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
       case 6:
         return <Trees {...iconProps} color="#166534" />;
       default:
-        return <Seed {...iconProps} color="#8B4513" />;
+        return (
+          <Image
+            source={require('@/assets/images/seed stage.png')}
+            style={{ width: size, height: size }}
+            resizeMode="contain"
+          />
+        );
     }
   };
 
