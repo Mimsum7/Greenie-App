@@ -116,7 +116,7 @@ export default function WelcomeScreen() {
             <Text style={styles.welcomeTitle}>Welcome to Greenie</Text>
             <Text style={styles.subtitle}>Your carbon coach</Text>
             <Text style={styles.description}>
-              Track your carbon footprint, build sustainable habits, and watch your virtual plant grow as you make eco-friendly choices every day.
+              Track your carbon footprint, build sustainable habits, and watch your plant grow as you make eco-friendly choices every day.
             </Text>
           </View>
 
