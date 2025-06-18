@@ -12,11 +12,13 @@ import Animated, {
   interpolate
 } from 'react-native-reanimated';
 import { useEffect } from 'react';
+import { useApp } from '@/contexts/AppContext';
 
 const { width, height } = Dimensions.get('window');
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { dispatch } = useApp();
   const logoScale = useSharedValue(0);
   const buttonScale = useSharedValue(1);
   const floatingAnimation = useSharedValue(0);
@@ -63,7 +65,31 @@ export default function WelcomeScreen() {
     );
     
     setTimeout(() => {
-      router.push('/auth');
+      // Create a default user and go directly to onboarding
+      const userData = {
+        id: '1',
+        email: 'user@greenie.app',
+        name: 'User',
+        dietPreference: 'omnivore' as const,
+        commutePreference: 'car' as const,
+        dailyCarbonGoal: 8,
+        totalPoints: 0,
+        currentStreak: 0,
+        plantStage: 0,
+        activeHabits: [] as string[],
+        badges: [] as string[],
+        createdAt: new Date(),
+        notificationSettings: {
+          dailyTip: true,
+          goalMet: true,
+          streakMilestone: true,
+          tipTime: '09:00',
+        },
+      };
+
+      dispatch({ type: 'SET_USER', payload: userData });
+      dispatch({ type: 'SET_ONBOARDING_COMPLETED', payload: false });
+      router.replace('/onboarding');
     }, 200);
   };
 
