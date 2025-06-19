@@ -35,7 +35,7 @@ export default function SplashScreen() {
     <View style={styles.container}>
       <View style={styles.content}>
         <Image
-          source={{ uri: 'https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=200&h=200&dpr=2' }}
+          source={require('@/assets/images/Greenie logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
