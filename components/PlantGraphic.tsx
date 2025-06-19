@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Dimensions } from 'react-native';
 import { Sprout, TreePine, Flower, Trees } from 'lucide-react-native';
 import { PlantStage } from '@/types';
+
+const { width } = Dimensions.get('window');
 
 interface PlantGraphicProps {
   stage: PlantStage;
   size?: number;
 }
 
-export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
+export function PlantGraphic({ stage, size = width * 0.3 }: PlantGraphicProps) {
   const getPlantIcon = () => {
     const iconProps = {
       size: size,
@@ -50,8 +52,8 @@ export function PlantGraphic({ stage, size = 120 }: PlantGraphicProps) {
   };
 
   return (
-    <View style={[styles.container, { width: size + 40, height: size + 40 }]}>
-      <View style={[styles.plantContainer, { width: size + 20, height: size + 20 }]}>
+    <View style={[styles.container, { width: size + width * 0.1, height: size + width * 0.1 }]}>
+      <View style={[styles.plantContainer, { width: size + width * 0.05, height: size + width * 0.05 }]}>
         {getPlantIcon()}
       </View>
     </View>

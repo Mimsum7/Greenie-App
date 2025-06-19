@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 interface ChatBubbleProps {
   text: string;
@@ -32,7 +34,7 @@ export function ChatBubble({ text, isUser, timestamp }: ChatBubbleProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
+    marginVertical: width * 0.02,
     maxWidth: '80%',
   },
   userContainer: {
@@ -44,22 +46,22 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   bubble: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 20,
-    marginBottom: 4,
+    paddingHorizontal: width * 0.04,
+    paddingVertical: width * 0.03,
+    borderRadius: width * 0.05,
+    marginBottom: width * 0.01,
   },
   userBubble: {
     backgroundColor: '#22C55E',
-    borderBottomRightRadius: 4,
+    borderBottomRightRadius: width * 0.01,
   },
   botBubble: {
     backgroundColor: '#F3F4F6',
-    borderBottomLeftRadius: 4,
+    borderBottomLeftRadius: width * 0.01,
   },
   text: {
-    fontSize: 16,
-    lineHeight: 22,
+    fontSize: width * 0.04,
+    lineHeight: width * 0.055,
   },
   userText: {
     color: '#FFFFFF',
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     color: '#374151',
   },
   timestamp: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     color: '#9CA3AF',
   },
   userTimestamp: {

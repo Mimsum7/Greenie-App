@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 interface ProgressBarProps {
   current: number;
@@ -29,7 +31,7 @@ export function ProgressBar({
         <View style={styles.progressBackground}>
           <View 
             style={[
-              styles.progressFill, 
+              styles.progressFill,
               { 
                 width: `${Math.min(progress * 100, 100)}%`,
                 backgroundColor: displayColor 
@@ -47,35 +49,35 @@ export function ProgressBar({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
+    marginVertical: width * 0.02,
   },
   label: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontWeight: '600',
     color: '#374151',
-    marginBottom: 8,
+    marginBottom: width * 0.02,
   },
   progressContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: width * 0.03,
   },
   progressBackground: {
     flex: 1,
-    height: 8,
+    height: width * 0.02,
     backgroundColor: '#F3F4F6',
-    borderRadius: 4,
+    borderRadius: width * 0.01,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    borderRadius: 4,
+    borderRadius: width * 0.01,
     transition: 'width 0.3s ease',
   },
   progressText: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     fontWeight: '600',
-    minWidth: 80,
+    minWidth: width * 0.2,
     textAlign: 'right',
   },
 });

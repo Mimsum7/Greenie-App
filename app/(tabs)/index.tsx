@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import { Flame, Trophy, MessageCircle, History, Activity, Plus } from 'lucide-react-native';
@@ -9,6 +9,8 @@ import { ProgressBar } from '@/components/ProgressBar';
 import { HabitCheckbox } from '@/components/HabitCheckbox';
 import { useApp } from '@/contexts/AppContext';
 import { getCurrentPlantStage, getNextPlantStage, getProgressToNextStage } from '@/utils/plantStages';
+
+const { width, height } = Dimensions.get('window');
 
 export default function DashboardScreen() {
   const { state, dispatch } = useApp();
@@ -85,11 +87,14 @@ export default function DashboardScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={['#C0F0C0', '#A6E6A6']} // 20% darker greens
+        colors={['#C0F0C0', '#A6E6A6']}
         style={styles.gradient}
       >
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {/* Daily Tip Banner - Updated with darker brown color and tappable */}
+        <ScrollView 
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Daily Tip Banner */}
           <TouchableOpacity style={styles.tipBanner} onPress={handleTipPress}>
             <Text style={styles.tipHeader}>🌱 Greenie's Tip</Text>
             <Text style={styles.tipText}>
@@ -104,7 +109,7 @@ export default function DashboardScreen() {
 
           {/* Plant Growth Panel */}
           <View style={styles.plantPanel}>
-            <PlantGraphic stage={currentPlantStage} size={100} />
+            <PlantGraphic stage={currentPlantStage} size={width * 0.25} />
             <Text style={styles.plantStageName}>{currentPlantStage.name}</Text>
             <Text style={styles.plantDescription}>{currentPlantStage.description}</Text>
             
@@ -133,12 +138,12 @@ export default function DashboardScreen() {
           {/* Points & Streak */}
           <View style={styles.statsContainer}>
             <View style={styles.statCard}>
-              <Trophy size={24} color="#CC7A00" /> {/* 20% darker gold */}
+              <Trophy size={width * 0.06} color="#CC7A00" />
               <Text style={styles.statValue}>{user.totalPoints}</Text>
               <Text style={styles.statLabel}>Total Points</Text>
             </View>
             <View style={styles.statCard}>
-              <Flame size={24} color="#BF3636" /> {/* 20% darker red */}
+              <Flame size={width * 0.06} color="#BF3636" />
               <Text style={styles.statValue}>{user.currentStreak}</Text>
               <Text style={styles.statLabel}>Day Streak</Text>
             </View>
@@ -164,11 +169,11 @@ export default function DashboardScreen() {
               current={dailyProgress.totalKgCO2}
               goal={user.dailyCarbonGoal}
               unit=" kg CO₂"
-              color={dailyProgress.totalKgCO2 <= user.dailyCarbonGoal ? '#1B8B3B' : '#BF3636'} // 20% darker colors
+              color={dailyProgress.totalKgCO2 <= user.dailyCarbonGoal ? '#1B8B3B' : '#BF3636'}
             />
             <Text style={[
               styles.carbonStatus,
-              { color: dailyProgress.totalKgCO2 <= user.dailyCarbonGoal ? '#1B8B3B' : '#BF3636' } // 20% darker colors
+              { color: dailyProgress.totalKgCO2 <= user.dailyCarbonGoal ? '#1B8B3B' : '#BF3636' }
             ]}>
               {dailyProgress.totalKgCO2 <= user.dailyCarbonGoal 
                 ? '🎉 Great job! You\'re on track!'
@@ -186,7 +191,7 @@ export default function DashboardScreen() {
                   style={styles.addHabitButton}
                   onPress={() => router.push('/habits')}
                 >
-                  <Plus size={16} color="#1B8B3B" /> {/* 20% darker green */}
+                  <Plus size={width * 0.04} color="#1B8B3B" />
                   <Text style={styles.addHabitText}>Add Habit</Text>
                 </TouchableOpacity>
               )}
@@ -231,7 +236,7 @@ export default function DashboardScreen() {
               style={styles.actionButton}
               onPress={() => router.push('/log-activity')}
             >
-              <Activity size={20} color="#FFFFFF" />
+              <Activity size={width * 0.05} color="#FFFFFF" />
               <Text style={styles.actionButtonText}>Log Activity</Text>
             </TouchableOpacity>
             
@@ -239,7 +244,7 @@ export default function DashboardScreen() {
               style={styles.actionButton}
               onPress={() => router.push('/history')}
             >
-              <History size={20} color="#FFFFFF" />
+              <History size={width * 0.05} color="#FFFFFF" />
               <Text style={styles.actionButtonText}>View History</Text>
             </TouchableOpacity>
             
@@ -247,7 +252,7 @@ export default function DashboardScreen() {
               style={styles.actionButton}
               onPress={() => router.push('/chat')}
             >
-              <MessageCircle size={20} color="#FFFFFF" />
+              <MessageCircle size={width * 0.05} color="#FFFFFF" />
               <Text style={styles.actionButtonText}>Chat with Greenie</Text>
             </TouchableOpacity>
           </View>
@@ -265,8 +270,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    padding: 20,
-    paddingBottom: 100,
+    padding: width * 0.05,
+    paddingBottom: height * 0.15,
   },
   loadingContainer: {
     flex: 1,
@@ -274,45 +279,45 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    fontSize: 16,
+    fontSize: width * 0.04,
     fontFamily: 'Inter-Medium',
-    color: '#545454', // 20% darker gray
+    color: '#545454',
   },
   tipBanner: {
-    backgroundColor: '#A5845F', // 10% darker brown color
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: '#A5845F',
+    borderRadius: width * 0.04,
+    padding: width * 0.05,
     borderWidth: 1,
-    borderColor: '#C19B7A', // Darker border
-    marginBottom: 20,
+    borderColor: '#C19B7A',
+    marginBottom: width * 0.05,
   },
   tipHeader: {
-    fontSize: 16,
+    fontSize: width * 0.04,
     fontFamily: 'Inter-SemiBold',
     color: '#FFFFFF',
-    marginBottom: 8,
+    marginBottom: width * 0.02,
   },
   tipText: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-Regular',
     color: '#FFFFFF',
-    lineHeight: 20,
+    lineHeight: width * 0.05,
   },
   header: {
-    marginBottom: 24,
+    marginBottom: width * 0.06,
   },
   greeting: {
-    fontSize: 24,
+    fontSize: width * 0.06,
     fontFamily: 'Inter-Bold',
-    color: '#0F4A1A', // 20% darker green
-    marginBottom: 4,
+    color: '#0F4A1A',
+    marginBottom: width * 0.01,
   },
   plantPanel: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 24,
+    borderRadius: width * 0.05,
+    padding: width * 0.06,
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: width * 0.05,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -320,63 +325,63 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   plantStageName: {
-    fontSize: 20,
+    fontSize: width * 0.05,
     fontFamily: 'Inter-Bold',
-    color: '#0F4A1A', // 20% darker green
-    marginTop: 16,
-    marginBottom: 4,
+    color: '#0F4A1A',
+    marginTop: width * 0.04,
+    marginBottom: width * 0.01,
   },
   plantDescription: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-Medium',
-    color: '#545454', // 20% darker gray
+    color: '#545454',
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: width * 0.04,
   },
   plantProgress: {
     width: '100%',
   },
   progressLabel: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     fontFamily: 'Inter-SemiBold',
-    color: '#2A3A2A', // 20% darker gray
-    marginBottom: 8,
+    color: '#2A3A2A',
+    marginBottom: width * 0.02,
     textAlign: 'center',
   },
   progressBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: width * 0.03,
   },
   progressBackground: {
     flex: 1,
-    height: 6,
-    backgroundColor: '#E6E6E6', // 20% darker background
-    borderRadius: 3,
+    height: width * 0.015,
+    backgroundColor: '#E6E6E6',
+    borderRadius: width * 0.0075,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#1B8B3B', // 20% darker green
-    borderRadius: 3,
+    backgroundColor: '#1B8B3B',
+    borderRadius: width * 0.0075,
   },
   progressText: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     fontFamily: 'Inter-SemiBold',
-    color: '#1B8B3B', // 20% darker green
-    minWidth: 60,
+    color: '#1B8B3B',
+    minWidth: width * 0.15,
     textAlign: 'right',
   },
   statsContainer: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 20,
+    gap: width * 0.03,
+    marginBottom: width * 0.05,
   },
   statCard: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: width * 0.04,
+    padding: width * 0.05,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -385,44 +390,44 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   statValue: {
-    fontSize: 24,
+    fontSize: width * 0.06,
     fontFamily: 'Inter-Bold',
-    color: '#2A3A2A', // 20% darker gray
-    marginTop: 8,
-    marginBottom: 4,
+    color: '#2A3A2A',
+    marginTop: width * 0.02,
+    marginBottom: width * 0.01,
   },
   statLabel: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     fontFamily: 'Inter-Medium',
-    color: '#545454', // 20% darker gray
+    color: '#545454',
   },
   bonusPanel: {
-    backgroundColor: '#FFF3CD', // Light yellow background
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 20,
+    backgroundColor: '#FFF3CD',
+    borderRadius: width * 0.04,
+    padding: width * 0.04,
+    marginBottom: width * 0.05,
     borderWidth: 1,
     borderColor: '#F0E68C',
   },
   bonusPanelTitle: {
-    fontSize: 16,
+    fontSize: width * 0.04,
     fontFamily: 'Inter-Bold',
-    color: '#8B7500', // Dark yellow
-    marginBottom: 8,
+    color: '#8B7500',
+    marginBottom: width * 0.02,
     textAlign: 'center',
   },
   bonusText: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-SemiBold',
-    color: '#8B7500', // Dark yellow
+    color: '#8B7500',
     textAlign: 'center',
-    marginBottom: 4,
+    marginBottom: width * 0.01,
   },
   carbonPanel: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 20,
+    borderRadius: width * 0.04,
+    padding: width * 0.05,
+    marginBottom: width * 0.05,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -430,22 +435,22 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   panelTitle: {
-    fontSize: 18,
+    fontSize: width * 0.045,
     fontFamily: 'Inter-SemiBold',
-    color: '#2A3A2A', // 20% darker gray
-    marginBottom: 16,
+    color: '#2A3A2A',
+    marginBottom: width * 0.04,
   },
   carbonStatus: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-SemiBold',
     textAlign: 'center',
-    marginTop: 8,
+    marginTop: width * 0.02,
   },
   habitsPanel: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
-    marginBottom: 20,
+    borderRadius: width * 0.04,
+    padding: width * 0.05,
+    marginBottom: width * 0.05,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -456,79 +461,79 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: width * 0.04,
   },
   addHabitButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    backgroundColor: '#C0F0C0', // 20% darker background
-    borderRadius: 12,
+    gap: width * 0.01,
+    paddingHorizontal: width * 0.03,
+    paddingVertical: width * 0.015,
+    backgroundColor: '#C0F0C0',
+    borderRadius: width * 0.03,
     borderWidth: 1,
-    borderColor: '#96E896', // 20% darker border
+    borderColor: '#96E896',
   },
   addHabitText: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     fontFamily: 'Inter-SemiBold',
-    color: '#1B8B3B', // 20% darker green
+    color: '#1B8B3B',
   },
   noHabitsContainer: {
     alignItems: 'center',
-    paddingVertical: 20,
+    paddingVertical: width * 0.05,
   },
   noHabitsText: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-Medium',
-    color: '#545454', // 20% darker gray
-    marginBottom: 12,
+    color: '#545454',
+    marginBottom: width * 0.03,
   },
   selectHabitsButton: {
-    backgroundColor: '#1B8B3B', // 20% darker green
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
+    backgroundColor: '#1B8B3B',
+    paddingHorizontal: width * 0.04,
+    paddingVertical: width * 0.02,
+    borderRadius: width * 0.03,
   },
   selectHabitsButtonText: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-SemiBold',
     color: '#FFFFFF',
   },
   todayPoints: {
-    fontSize: 16,
+    fontSize: width * 0.04,
     fontFamily: 'Inter-Bold',
-    color: '#1B8B3B', // 20% darker green
+    color: '#1B8B3B',
     textAlign: 'center',
-    marginTop: 16,
-    backgroundColor: '#C0F0C0', // 20% darker background
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 12,
+    marginTop: width * 0.04,
+    backgroundColor: '#C0F0C0',
+    paddingVertical: width * 0.02,
+    paddingHorizontal: width * 0.04,
+    borderRadius: width * 0.03,
   },
   bonusBreakdown: {
-    fontSize: 14,
+    fontSize: width * 0.035,
     fontFamily: 'Inter-Medium',
-    color: '#CC7A00', // Gold color for bonus
+    color: '#CC7A00',
   },
   actionsContainer: {
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 20,
+    gap: width * 0.02,
+    marginBottom: width * 0.05,
   },
   actionButton: {
     flex: 1,
-    backgroundColor: '#1B8B3B', // 20% darker green
-    paddingVertical: 12,
-    paddingHorizontal: 8,
-    borderRadius: 12,
+    backgroundColor: '#1B8B3B',
+    paddingVertical: width * 0.03,
+    paddingHorizontal: width * 0.02,
+    borderRadius: width * 0.03,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
+    gap: width * 0.015,
   },
   actionButtonText: {
-    fontSize: 12,
+    fontSize: width * 0.03,
     fontFamily: 'Inter-SemiBold',
     color: '#FFFFFF',
   },
