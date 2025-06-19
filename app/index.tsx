@@ -9,5 +9,5 @@ export default function Index() {
     router.replace('/splash');
   }, []);
 
-  return null;
+  return null;
 }

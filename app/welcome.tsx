@@ -82,7 +82,7 @@ export default function WelcomeScreen() {
         {/* Logo Section */}
         <Animated.View style={[styles.logoContainer, logoAnimatedStyle]}>
           <Image
-            source={require('@/assets/images/Greenie logo.png')}
+            source={{ uri: 'https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=280&h=280&dpr=2' }}
             style={styles.logo}
             resizeMode="contain"
           />
